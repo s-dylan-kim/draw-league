@@ -2,6 +2,8 @@ const express = require('express');
 const socketio = require('socket.io');
 const http = require('http');
 
+const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
+
 const PORT = process.env.PORT || 5000
 
 const app = express();
@@ -12,13 +14,18 @@ io.on('connection', (socket) => {
     console.log('New Connction');
 
     socket.on('join', ({ name, room }, callback) => {
-        console.log(name, room);
 
-        const error = true;
+        const { error } = addUser({ id: socket.id, name, room });
 
-        if(error) {
-            callback({ error: 'error' });
+        if (error) {
+            callback({ error });
         }
+
+        console.log(socket.id, name, room);
+
+        socket.join(room);
+
+        callback({});
     })
 
     socket.on('disconnect', () => {
