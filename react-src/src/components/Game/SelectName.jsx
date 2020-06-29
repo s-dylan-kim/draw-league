@@ -1,5 +1,7 @@
 import React from 'react';
 
+import socket from './Socket';
+
 const SelectName = (props) => {
   return (
     <form>

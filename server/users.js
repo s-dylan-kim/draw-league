@@ -1,8 +1,35 @@
 const rooms = [];
+const ROOMNAMELENGTH = 4;
 
 //maybe make these return room ID
 
-const addUser = ({ id, name, room }) => {
+const createRoom = () => {
+			
+    var roomName = "";
+
+    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    do {
+        text = ''
+
+        for(let i = 0; i < ROOMNAMELENGTH; i++) {
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+    
+        var existingRoom = rooms.find((rooms) => rooms.name == roomName);
+    }
+    while (existingRoom);
+    
+    const room = { name: text, users: [] };
+
+    rooms.push(room);
+
+    console.log(rooms)
+
+    return { room };
+}
+
+const addUser = ({ name, room }) => {
 
     const existingRoom = rooms.find((rooms) => rooms.name == room);
 
@@ -18,7 +45,7 @@ const addUser = ({ id, name, room }) => {
         return { error: 'Username is taken' };
     }
 
-    const user = { id, name };
+    const user = { name };
 
     users.push(user);
 
@@ -70,4 +97,4 @@ const getUsersInRoom = (room) => {
     return existingRoom.users;
 }
 
-module.exports= { addUser, removeUser, getUser, getUsersInRoom };
+module.exports= { createRoom, addUser, removeUser, getUser, getUsersInRoom };

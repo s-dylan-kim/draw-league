@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
-import io from 'socket.io-client';
+
+import socket from './Socket';
 
 import SelectName from './SelectName';
-
-let socket;
+import Canvas from './Canvas';
+import Chat from './Chat';
 
 const Game = ({ location }) => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
-  const [state, setState] = useState(0);
-  const ENDPOINT = 'localhost:5000';
+  const [state, setState] = useState(1);
 
   const submitName = (e) => {
     e.preventDefault();
@@ -27,8 +27,6 @@ const Game = ({ location }) => {
   useEffect(() => {
     const { room } = queryString.parse(location.search);
 
-    socket = io(ENDPOINT);
-
     setRoom(room);
 
     return () => {
@@ -36,14 +34,18 @@ const Game = ({ location }) => {
 
       socket.off();
     };
-  }, [ENDPOINT, location.search]);
+  }, [location.search]);
 
   return (
     <React.Fragment>
       {state === 0 ? (
         <SelectName submitName={submitName} setName={setName} />
-      ) : null}
-      <h1>Game</h1>
+      ) : (
+        <React.Fragment>
+          <Canvas socket={socket} />
+          <Chat />
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };
