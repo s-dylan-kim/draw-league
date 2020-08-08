@@ -10,7 +10,7 @@ import Chat from './Chat';
 const Game = ({ location }) => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
-  const [state, setState] = useState(1);
+  const [state, setState] = useState(0);
 
   const submitName = (e) => {
     e.preventDefault();

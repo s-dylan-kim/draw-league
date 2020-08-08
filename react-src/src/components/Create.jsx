@@ -11,7 +11,9 @@ const Create = () => {
     event.preventDefault();
 
     axios.post('http://localhost:5000/create', { name }).then(
-      (res) => {},
+      (res) => {
+        console.log(res);
+      },
       (error) => {
         console.log(error);
       }
