@@ -46,6 +46,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
+    socket.on('message', (data) => socket.broadcast.emit('message', data));
 })
 
 app.post('/create', (req, res) => {

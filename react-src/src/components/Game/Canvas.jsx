@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { throttle } from 'lodash';
 
 import socket from './Socket';
@@ -7,7 +7,7 @@ const Canvas = (props) => {
   let whiteboard = useRef();
   let isDrawing = false;
   let previous = {
-    color: '#0000FF',
+    color: '#FF8080',
     x: 0,
     y: 0,
   };
@@ -89,8 +89,8 @@ const Canvas = (props) => {
       ref={whiteboard}
       onMouseDown={({ clientX, clientY }) => onMouseDown(clientX, clientY)}
       onMouseUp={({ clientX, clientY }) => onMouseUp(clientX, clientY)}
-      onMouseEnter=''
-      onMouseLeave=''
+      // onMouseEnter=''
+      // onMouseLeave=''
       onMouseMove={({ clientX, clientY }) => onMouseMove(clientX, clientY)}
       onTouchStart={({ clientX, clientY }) => onMouseDown(clientX, clientY)}
       onTouchEnd={({ clientX, clientY }) => onMouseUp(clientX, clientY)}

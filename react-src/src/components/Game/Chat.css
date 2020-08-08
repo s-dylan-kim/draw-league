@@ -1,0 +1,18 @@
+#message {
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+}
+
+#chat-container {
+    height: 200px;
+    width: 200px;
+    border: 1px solid #000000;
+    position: relative;
+}
+
+#message-wrapper{
+    height: 100%;
+    overflow: scroll;
+}
