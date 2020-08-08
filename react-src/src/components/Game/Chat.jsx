@@ -13,9 +13,10 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on('message', (data) => {
+      console.log(data);
       setMessageList([
         ...messageList,
-        { user: data.user, message: data.message },
+        { name: data.name, message: data.message },
       ]);
     });
   });
@@ -25,7 +26,7 @@ const Chat = () => {
   };
 
   const sendMessage = () => {
-    socket.emit('message', { user: 'me', message: message });
+    socket.emit('message', { message: message });
   };
 
   const handleKeyDown = (e) => {
@@ -37,7 +38,7 @@ const Chat = () => {
           messageWrapperRef.current.scrollTop ===
           messageWrapperRef.current.clientHeight
       );
-      setMessageList([...messageList, { user: 'You', message: message }]);
+      setMessageList([...messageList, { name: 'Me', message: message }]);
       setMessage('');
     }
   };
@@ -53,7 +54,7 @@ const Chat = () => {
       <div id='message-wrapper' ref={messageWrapperRef}>
         {messageList.map((message, index) => (
           <p key={index}>
-            {message.user}: {message.message}
+            {message.name}: {message.message}
           </p>
         ))}
         <div ref={messageEndRef} style={{ float: 'left', clear: 'both' }} />

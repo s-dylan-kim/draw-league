@@ -29,6 +29,7 @@ io.on('connection', (socket) => {
     socket.on('join', ({ name, room }, callback) => {
 
         socket.room = room;
+        socket.name = name;
 
         const { error } = addUser({ id: socket.id, name, room });
 
@@ -47,8 +48,8 @@ io.on('connection', (socket) => {
         console.log('User disconnected');
     })
 
-    socket.on('drawing', (data) => socket.broadcast.to(socket.room).emit('drawing', data));
-    socket.on('message', (data) => socket.broadcast.to(socket.room).emit('message', data));
+    socket.on('drawing', (data) => socket.broadcast.to(socket.room).emit('drawing', {...data, name: socket.name}));
+    socket.on('message', (data) => socket.broadcast.to(socket.room).emit('message', {...data, name: socket.name}));
 })
 
 app.post('/create', (req, res) => {
